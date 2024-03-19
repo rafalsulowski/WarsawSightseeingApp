@@ -2,10 +2,11 @@
 
 <p id="description">The aim of application was to use .NET CORE software technology (a.o. .NET MAUI, .NET WPF, .NET MVC) to create an application running on multiple operating systems. The application is designed to help organise sightseeing Warsaw associated with tourism. The basic assumption was to create an application running on the three most popular operating systems i.e. Windows iOS Android. The application works by presenting data using the graphical controls of the .NET MAUI, .NET WPF and web controls, frontend retrieving data from a server using HTTPS communication (ASP .NET CORE WEB API) and saving the data to a database with an appropriate relational table model using MSSQL. It is therefore a complete software system designed to support organisers in planning and implementing sightseeing Warsaw trip from any available device.</p>
 
-<h2>Project Screenshots:</h2>
+<h2>Project Videos:</h2>
 
 Creating trip (Windows): </br>
-[![Watch the video]()](https://github.com/rafalsulowski/WarsawSightseeingApp/assets/48453164/df306bfc-e64c-4e56-b6ca-acd79ef1bb36)
+[![Watch the video](https://github.com/rafalsulowski/WarsawSightseeingApp/files/14647759/aktorzy.pdf)](https://github.com/rafalsulowski/WarsawSightseeingApp/assets/48453164/df306bfc-e64c-4e56-b6ca-acd79ef1bb36)
+
 
 </br>Editing trip (Windows): </br>
 [![Watch the video]()](https://github.com/rafalsulowski/WarsawSightseeingApp/assets/48453164/00e91f5c-8302-421c-80e3-15e018e8836e)
