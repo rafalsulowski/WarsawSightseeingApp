@@ -4,8 +4,9 @@
 
 <h2>Project Videos:</h2>
 
-Creating trip (Windows): </br>
-[![Watch the video](https://github.com/rafalsulowski/WarsawSightseeingApp/files/14647759/aktorzy.pdf)](https://github.com/rafalsulowski/WarsawSightseeingApp/assets/48453164/df306bfc-e64c-4e56-b6ca-acd79ef1bb36)
+Creating trip (Windows):
+
+[![Watch the video]()](https://github.com/rafalsulowski/WarsawSightseeingApp/assets/48453164/df306bfc-e64c-4e56-b6ca-acd79ef1bb36)
 
 
 </br>Editing trip (Windows): </br>
