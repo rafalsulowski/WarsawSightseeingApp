@@ -9,7 +9,8 @@ Creating trip (Windows):
 [![Watch the video]()](https://github.com/rafalsulowski/WarsawSightseeingApp/assets/48453164/df306bfc-e64c-4e56-b6ca-acd79ef1bb36)
 
 
-</br>Editing trip (Windows): </br>
+</br>Editing trip (Windows):
+
 [![Watch the video]()](https://github.com/rafalsulowski/WarsawSightseeingApp/assets/48453164/00e91f5c-8302-421c-80e3-15e018e8836e)
 
 <h2>🧐 Features</h2>
