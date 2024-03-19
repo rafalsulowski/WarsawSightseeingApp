@@ -1,0 +1,134 @@
+﻿@model IEnumerable<ProjektZespolowy.Models.Place>
+@{
+    ViewData["Title"] = "Dodawanie miejsca";
+}
+
+
+<form action="/Trips/AddPlace" method="POST">
+    <div class="form-group m-2">
+        <label for="placeId"><h4>Miejsce</h4></label><br />
+        <select onchange="updatePlaceInfo()" id="placeId" name="placeId" required>
+            @foreach (var item in Model.OrderBy(p=>p.Name))
+            {
+                <option value="@Html.Raw(item.Id)">@Html.Raw(item.Name)</option>
+            }
+        </select><br />
+        <small id="czas_otwarcia">Czas otwarcia: </small><br />
+        <small id="przewidywany_czas">Przewidywany czas zwiedzania: </small><br />
+        <small id="budzet">Przewidywany budżet: </small><br />
+        <p id="warning" style="visibility:hidden" class="text-danger">Uwaga! Po dodaniu tego miejsca przewidywany koszt wycieczki przewyższy planowany budżet. 
+            Upewnij się, że masz wystarczający budżet lub odpowiednie zniżki.
+        </p>
+    </div>
+    <div class="form-group m-2">
+        <label for="timeForPlace"><h4 class="mb-0">Planowany czas pobytu</h4></label><br />
+        <small>w minutach</small><br />
+        
+        <input name="timeForPlace" required type="text" autocomplete="off">
+    </div>
+    <div class="form-group m-2">
+        <input name="tripId" required type="hidden" value="-1" autocomplete="off">
+    </div>
+    <button type="submit" value="Submit" class="btn btn-primary mt-3">Dodaj</button>
+</form>
+
+<script>
+    function updatePlaceInfo(){
+        //op - opening, cl - closing, ts - timespent, bd - budget
+        const id = document.getElementById("placeId").value;
+        var op = places_opening[(id-1)*7+(dayofweek-1)]
+        op_h = parseInt(op/60)
+        op_m = parseInt(op - op_h*60)
+        if (op_m%10 == 0){
+            op_m = op_m + "0"
+        }
+
+        var cl = places_closing[(id - 1) * 7 + (dayofweek - 1)]
+        cl_h = parseInt(cl/60)
+        cl_m = parseInt(cl - cl_h*60)
+        if (cl_m%10 == 0){
+            cl_m = cl_m + "0"
+        }
+
+        var ts = places_timespent[id-1]
+        var bd = places_budget[id-1]
+        if (op_h == 0 && op_m == "00" && cl_h == 0 && cl_m == "00"){
+            document.getElementById("czas_otwarcia").textContent = "Obiekt zamknięty w dniu wycieczki"
+        } else {
+            document.getElementById("czas_otwarcia").textContent = "Godziny otwarcia w dniu wycieczki: " + op_h + ":" + op_m + " - " + cl_h + ":" + cl_m
+        }
+
+        document.getElementById("przewidywany_czas").textContent = "Przewidywany czas zwiedzania: " + ts + " minut"
+        document.getElementById("budzet").textContent = "Przewidywany budżet: " + bd + " PLN"
+        console.log(parseInt(estimated_cost), parseInt(bd), parseInt(planned_cost))
+        console.log(parseInt(estimated_cost) + parseInt(bd) > parseInt(planned_cost))
+        if (parseInt(estimated_cost) + parseInt(bd) > parseInt(planned_cost)){
+            document.getElementById("warning").style.visibility = "visible"
+        } else {
+            document.getElementById("warning").style.visibility = "hidden"
+        }
+    }
+    
+
+
+    const places_names = [
+    @foreach (var item in Model)
+    {
+
+        @Html.Raw("\"")@Html.Raw(item.Name)@Html.Raw("\",")
+    }
+        ]
+    const places_ids = [
+    @foreach (var item in Model)
+    {
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.Id)@Html.Raw("\",")
+    }
+            ]
+
+    const places_timespent = [
+    @foreach (var item in Model)
+    {
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.AverageTimeSpent)@Html.Raw("\",")
+    }
+                ]
+
+    const places_budget = [
+    @foreach (var item in Model)
+    {
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.EstimatedCost)@Html.Raw("\",")
+    }
+                    ]
+    @{
+        //object value = typeof(YourType).GetProperty("PropertyName").GetValue(yourInstance);
+        int day = (int)System.DateTime.Now.DayOfWeek;
+    }
+    const estimated_cost = "@ViewData["edited-trip-estimated-cost"]";
+    const planned_cost = "@ViewData["edited-trip-planned-cost"]";
+    const dayofweek = "@ViewData["edited-trip-day"]";
+    const places_opening = [
+    @foreach (var item in Model)
+    {
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.OpeningMonday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.OpeningTuesday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.OpeningWednesday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.OpeningThursday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.OpeningFriday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.OpeningSaturday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.OpeningSunday)@Html.Raw("\",")//
+    }
+    ]
+    const places_closing = [
+    @foreach (var item in Model)
+    {
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.ClosingMonday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.ClosingTuesday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.ClosingWednesday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.ClosingThursday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.ClosingFriday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.ClosingSaturday)@Html.Raw("\",")//
+        @Html.Raw("\"")@Html.DisplayFor(modelItem => item.PlaceAvailabilityTime.ClosingSunday)@Html.Raw("\",")//
+    }
+    ]
+    //init
+    updatePlaceInfo()
+</script>

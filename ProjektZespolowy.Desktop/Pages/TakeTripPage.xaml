@@ -1,0 +1,30 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.TakeTripPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="TakeTripPage">
+
+    <Canvas Background="White">
+        <Label Content="" HorizontalContentAlignment="Center" x:Name="m_TitleOfPage" FontSize="36" Height="95" Width="1300" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+        <Label Content="Przygotuj się do wycieczki" HorizontalContentAlignment="Center" FontSize="25" Canvas.Top="80" Height="95" Width="1300" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+        <Button Content="Zaczynamy" x:Name="m_BtnTake" Canvas.Left="448" Canvas.Top="160" Height="33" Width="162" Background="#FF138100" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Take">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button Content="Anuluj" x:Name="m_BtnCancel" Canvas.Left="681" Canvas.Top="160" Height="33" Width="162" Background="#FF6D3400" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Cancel">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Canvas>
+</Page>

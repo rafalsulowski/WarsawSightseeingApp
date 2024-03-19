@@ -1,0 +1,40 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.Test"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"  
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450"
+      Title="Test" Width="1305" Background="White">
+
+
+    <Grid Background="White" >
+        <!--<Grid>
+            <Border Margin="5,0,5,8" ClipToBounds="True" CornerRadius="20">
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.Background" Value="#FFE3E3E3"/>
+                        <Style.Triggers>
+                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                <Setter Property="Border.Background" Value="#FF3396FF" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Canvas Background="Transparent" Height="58" Canvas.Left="135" Canvas.Top="435" HorizontalAlignment="Center" VerticalAlignment="Center" Width="524">
+                    <Label Content="Nazwa:" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalAlignment="Top" HorizontalAlignment="Center" Canvas.Top="30"/>
+                    <Label Name="m_Name" Content="{Binding Name}" FontWeight="Bold" FontSize="14" Canvas.Left="46" Canvas.Top="29" HorizontalAlignment="Center" VerticalAlignment="Top" Width="422" Background="{x:Null}" Height="auto"/>
+                    <Label Content="Koszt:" FontWeight="Bold" Canvas.Top="2" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="420"/>
+                    <Label Content="PLN" FontWeight="Bold" Canvas.Top="2" Canvas.Left="497" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Name="m_Cost" Content="{Binding EstimatedCost}" Canvas.Left="459" Height="26" Width="33" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="2" RenderTransformOrigin="0.38,0.577"/>
+                    <Label Content="Zaplanowany czas:" FontWeight="Bold" Canvas.Top="2" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="173"/>
+                    <Label x:Name="m_TimeSpent" Content="{Binding }" Canvas.Left="283" Height="26" Width="132" Canvas.Top="2" RenderTransformOrigin="0.38,0.577" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="Kolejność w podróży:" FontWeight="Bold" Canvas.Top="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label x:Name="m_Cost_Copy" Content="{Binding Sequence}" Canvas.Left="127" Height="26" Width="41" Canvas.Top="2" RenderTransformOrigin="0.38,0.577" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Canvas>
+            </Border>
+        </Grid>-->
+    </Grid>
+</Page>

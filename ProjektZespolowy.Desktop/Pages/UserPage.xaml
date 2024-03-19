@@ -1,0 +1,48 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.UserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="UserPage">
+
+    <Canvas Name="m_canvas" Background="White">
+        <Label HorizontalContentAlignment="Right" Content="Informacje o użytkowniku:" Canvas.Left="50" Canvas.Top="84" Height="45" Width="290" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+        <Label Name="m_userName" Content="{Binding Username}" Canvas.Left="365" Canvas.Top="84" Height="45" Width="580" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"></Label>
+        <Label HorizontalContentAlignment="Right" Content="E-mail:" Canvas.Left="197" Canvas.Top="129" Height="45" Width="143" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Name="m_userEmail" Content="{Binding Email}" Canvas.Left="365" Canvas.Top="129" Height="45" Width="580" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"></Label>
+        <Label HorizontalContentAlignment="Right" Content="Nazwa użytkownika:" Canvas.Left="113" Canvas.Top="174" Height="45" Width="227" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Name="m_userName2" Content="{Binding Username}" Canvas.Left="365" Canvas.Top="174" Height="46" Width="580" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
+
+        <Button Content="Wyloguj" Canvas.Left="1120" Canvas.Top="89" Height="40" Width="105" Background="#FF007BFF" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Click="Button_Logout">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Wyświetl moje wycieczki" x:Name="m_BtnTrips" Canvas.Left="480" Canvas.Top="224" Height="36" Width="178" Background="#FF007BFF" Foreground="White" 
+            Click="Button_ShowTrips" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Wyświetl moje posty" x:Name="m_BtnPosts" Canvas.Left="480" Canvas.Top="268" Height="36" Width="178" Background="#FF007BFF" Foreground="White" 
+            Click="Button_ShowPosts" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label HorizontalContentAlignment="Right" Content="Liczba utworzonych wycieczek:" Canvas.Top="219" Height="45" Width="340" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label HorizontalContentAlignment="Right" Content="Liczba utworzonych postów:" Canvas.Top="264" Height="45" Width="340" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="{Binding m_Trips.Count}" x:Name="m_TripsCounter" Canvas.Top="219" Height="45" Width="110" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="365"/>
+        <Label Content="{Binding m_Posts.Count}" x:Name="m_PostsCounter" Canvas.Top="264" Height="45" Width="110" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="365"/>
+    </Canvas>
+</Page>

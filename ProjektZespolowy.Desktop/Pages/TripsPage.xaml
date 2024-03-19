@@ -1,0 +1,79 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.TripsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="TripsPage">
+
+    <Canvas Background="White">
+        <Canvas.Resources>
+            <Style  x:Key="alternatingStyle"  TargetType="{x:Type ListViewItem}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Canvas.Resources>
+
+        <ComboBox x:Name="m_Order" Text="Sortowanie" SelectionChanged="ComboBox_SelectionChanged" Width="215" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="1055" Canvas.Top="30" Background="Black">
+            <ComboBoxItem Content="Sortuj po liczbie miejsc rosnąco"></ComboBoxItem>
+            <ComboBoxItem Content="Sortuj po liczbie miejsc malejąco"></ComboBoxItem>
+            <ComboBoxItem Content="Sortuj po sposobie transportu"></ComboBoxItem>
+            <ComboBoxItem Content="Sortuj po dacie rosnąco"></ComboBoxItem>
+            <ComboBoxItem Content="Sortuj po dacie malejąco"></ComboBoxItem>
+            <ComboBoxItem Content="Sortuj po tytule alfabetycznie"></ComboBoxItem>
+        </ComboBox>
+
+        <Label Content="Wycieczki" Height="65" Width="404" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="36" Canvas.Left="448"/>
+
+        <Button Content="Utwórz nową wycieczkę" Canvas.Left="880" Canvas.Top="25" Height="32" Width="153" Background="#FF007BFF" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_AddNewTrip">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+
+
+        <ListView ItemContainerStyle="{StaticResource alternatingStyle}" IsSynchronizedWithCurrentItem="True" Name="m_TripsList" PreviewMouseDoubleClick="OnPreviewMouseDoubleClick" HorizontalContentAlignment="Center"  Canvas.Left="92" Canvas.Top="86" Height="594" Width="1116" HorizontalAlignment="Center" VerticalAlignment="Top" Background="White" Foreground="Black">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Border Margin="5,0,5,8" ClipToBounds="True" CornerRadius="20">
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Border.Background" Value="#FFE3E3E3"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="Border.IsMouseOver" Value="True">
+                                            <Setter Property="Border.Background" Value="#FF3396FF" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Canvas Background="Transparent" Height="70" Canvas.Left="135" Canvas.Top="435" HorizontalAlignment="Center" VerticalAlignment="Center" Width="990">
+                                <Label Content="Autor:" HorizontalContentAlignment="Right" Canvas.Left="10" Canvas.Top="5" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                                <Label Name="m_Author" Content="{Binding Author}" Canvas.Left="63" Canvas.Top="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="349" Background="{x:Null}" Height="26"></Label>
+                                <Label Content="Tytuł:" HorizontalContentAlignment="Right" Canvas.Left="14" Canvas.Top="41" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Label Name="m_Title" Content="{Binding Title}" Canvas.Left="63" Canvas.Top="41" HorizontalAlignment="Left" VerticalAlignment="Center" Width="432" Height="26"/>
+                                <Label Content="Godzina i data rozpoczęcia:" Canvas.Left="642" Canvas.Top="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Label x:Name="m_Date" Content="{Binding Date}" HorizontalContentAlignment="Center" Canvas.Left="758" Height="26" Width="202" Canvas.Top="5" RenderTransformOrigin="0.485,0.577" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Label Content="Rodzaj transportu:" HorizontalContentAlignment="Left" Canvas.Left="689" Canvas.Top="36" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Label x:Name="m_TransportType" Content="{Binding TransportType}" HorizontalContentAlignment="Center" Canvas.Left="807" Height="26" Width="auto" Canvas.Top="36" RenderTransformOrigin="0.38,0.577" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Label Content="Liczba zaplanowanych miejsc:" Canvas.Left="405" Canvas.Top="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Label x:Name="m_Budget" Content="{Binding PlaceCount}" HorizontalContentAlignment="Center" Canvas.Left="577" Height="26" Width="auto" Canvas.Top="5" RenderTransformOrigin="0.485,0.577" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </Canvas>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Canvas>
+</Page>

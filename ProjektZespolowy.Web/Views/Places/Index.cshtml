@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ProjektZespolowy.Models.Place>
+
+<script>
+    function showModal(item) {
+        var id = item.dataset.id
+        const modal = document.getElementsByClassName("modal-dialog")[0]
+        modal.getElementsByClassName("modal-title")[0].innerHTML = item.dataset.name
+        modal.getElementsByClassName("modal-description")[0].innerHTML = item.dataset.description
+        modal.getElementsByClassName("modal-map")[0].src = "https://www.google.com/maps?q=@@" + item.dataset.coordinates + "&output=embed"; 
+    }
+</script>
+
+@{
+    ViewData["Title"] = "Miejsca";
+}
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">...</p>
+                <div id="map-embed" class="" style="height:45vh">
+                    <iframe class="modal-map" src="https://www.google.com/maps?q=@@52.2319711247777,21.00618174218784&output=embed" style="height:45vh;width:100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="places-grid">
+    @foreach (var item in Model)
+    {
+        <div class="justify-content-center d-flex">
+            <div class="card place-card" style="width: 18rem;">
+                <img src="/images/places/@Html.DisplayFor(modelItem=>item.Id)@Html.Raw(".jpg")" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <a class="btn btn-primary modal-link" 
+                           data-id="@Html.DisplayFor(modelItem => item.Id)"
+                           data-coordinates="@Html.DisplayFor(modelItem => item.Coordinates)"
+                           data-averagetimespent="@Html.DisplayFor(modelItem => item.AverageTimeSpent)"
+                           data-name="@Html.DisplayFor(modelItem=>item.Name)"
+                           data-description="@Html.DisplayFor(modelItem=>item.Description)"
+                           data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showModal(this)">Szczegóły</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+<style>
+    .places-grid{
+        width:100%;
+        display:grid;
+        grid-template-columns: repeat(auto-fit,25vw);
+        grid-row-gap: 5em;
+        grid-column-gap: .5em;
+    }
+    .contrainer{
+        width:100%!important
+    }
+    .card-body{
+        display:flex;
+        flex-direction:column;
+    }
+    .card-title{
+        font-size:3vmin;
+    }
+    .card-text{
+        font-size:2vmin;
+    }
+    .modal-link{
+        margin-top:auto;
+        font-size:2vmin;
+    }
+
+
+
+</style>
+
+

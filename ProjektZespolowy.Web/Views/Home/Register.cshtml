@@ -1,0 +1,76 @@
+﻿@model ProjektZespolowy.Models.DTO.RegisterUserDTO
+
+@{
+    ViewData["Title"] = "Register";
+}
+<body class="" style="height:80vh ">
+    <h1 style="text-align:center" class="lang">Register</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4  mx-auto">
+            <form asp-action="Register">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label lang"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label lang"></label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label lang"></label>
+                    <input type=password asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label lang"></label>
+                    <input type=password asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group pt-3" style="text-align:center;">
+                    <input type="submit" value="Register" class="btn lang btn-primary" />
+                    <a href="/">
+                        <input class="btn btn-secondary lang" type="button" value="Go back" />
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script>
+    function switchLanguage() {
+        var language = getLanguage();
+        items = document.getElementsByClassName("lang")
+        if (language == "pl") {
+            document.title = "Rejestracja"
+            items[0].textContent = "Rejestracja"
+            items[2].textContent = "Pseudonim"
+            items[3].textContent = "Hasło"
+            items[4].textContent = "Potwierdź hasło"
+            items[5].value = "Zarejestruj"
+            items[6].value = "Wróć"
+            
+
+        }
+        else if (language == "en") {
+            document.title = "Register"
+            items[0].textContent = "Register"
+            items[2].textContent = "Username"
+            items[3].textContent = "Password"
+            items[4].textContent = "Confirm password"
+            items[5].value = "Register"
+            items[6].value = "Go back"
+            
+        }
+
+    }
+</script>

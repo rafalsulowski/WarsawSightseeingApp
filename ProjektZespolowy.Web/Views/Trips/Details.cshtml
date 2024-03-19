@@ -1,0 +1,107 @@
+﻿@model ProjektZespolowy.Models.DTO.TripDTO
+@{
+    ViewData["Title"] = "Szczegóły wycieczki";
+    }
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<h1 class="border border-primary rounded-pill text-center pb-2">@Html.DisplayFor(model => model.Title)</h1>
+<p>@Html.Raw(Model.Description)</p>
+
+
+<div class="d-flex w-100">
+    <div class="d-flex flex-column">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Godzina rozpoczęcia</th>
+                    <td>@Html.Raw(Model.StartHour)</td>
+                </tr>
+                <tr>
+                    <th>Godzina zakończenia</th>
+                    <td>@Html.Raw(Model.StopHour)</td>
+                </tr>
+                <tr>
+                    <th>Data</th>
+                    <td>@Html.Raw(Model.Date.ToShortDateString())</td>
+                </tr>
+                <tr>
+                    <th>Transport</th>
+                    <td>@Html.Raw(Model.TransportType)</td>
+                </tr>
+                <tr>
+                    <th>Zaplanowany budżet</th>
+                    <td>@Html.Raw(Model.Budget) @Html.Raw("PLN")</td>
+                </tr>
+                <tr>
+                    <th>Aktualny przewidywany koszt</th>
+                    <td>@Html.Raw(Model.Places.Sum(item=>item.EstimatedCost)) @Html.Raw("PLN")</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<ul class="list-group mb-4">
+    @foreach (var item in Model.Places.OrderBy(p => p.Sequence))
+    {
+        <li class="list-group-item">
+            <div class="row">
+                <p class="col-11">@Html.Raw(item.Name)</p>
+                <button data-id=@Html.Raw(item.Id) class="btn btn-danger col-1" onclick="usunMiejsce(this)">X</button>
+            </div>
+        
+        </li>
+    }
+</ul>
+<a href="/Trips/AddPlace/" class="btn btn-primary">Dodaj</a>
+<a href="/Trips/ActiveTrip/" class="btn btn-primary">Rozpocznij</a>
+@*@if(Model.UserId==)*@
+<a asp-controller="Trips" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edytuj</a>
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tripDelete">
+    Usuń
+</button>
+
+<div class="modal fade" id="tripDelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Trip</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to Remove this Trip?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                <a asp-controller="Trips" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-success">Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function loaded(){
+        document.getElementsByClassName("carousel-item")[0].classList += " active"
+    }
+    loaded()
+    function usunMiejsce(btn){
+        console.log(btn.dataset.id + " do usuniecia")
+        fetch(window.location.href, {
+            method: "DELETE",
+            body: JSON.stringify({
+                "PlaceId": btn.dataset.id
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+    }
+
+</script>

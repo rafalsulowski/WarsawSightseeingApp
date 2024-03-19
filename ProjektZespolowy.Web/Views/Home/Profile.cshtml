@@ -1,0 +1,34 @@
+﻿@model List<ProjektZespolowy.Models.Post>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Profil";
+}
+<h1> Zalogowano jako @Html.Raw(ViewData["username"])</h1>
+<h3> Posty utworzone przez użytkownika </h3>
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <a href="/forum/post/@Html.DisplayFor(modelItem => item.Id)" class="list-group-item list-group-item-action flex-column align-items-start ">
+            <div class="d-flex w-100 justify-content-between">
+                @if (item.Type == 0)
+                {
+                    <h5 class="mb-1 text-info">@Html.DisplayFor(modelItem => item.Title)</h5>
+                }
+                else if (item.Type == ProjektZespolowy.Models.PostType.Discussion)
+                {
+                    <h5 class="mb-1 text-success">@Html.DisplayFor(modelItem => item.Title)</h5>
+
+                }
+                else
+                {
+                    <h5 class="mb-1 text-danger">@Html.DisplayFor(modelItem => item.Title)</h5>
+                }
+
+
+
+            </div>
+        </a>
+    }
+</ul>

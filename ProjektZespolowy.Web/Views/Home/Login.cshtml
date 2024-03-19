@@ -1,0 +1,62 @@
+﻿@model ProjektZespolowy.Models.DTO.LoginDTO
+
+@{
+    ViewData["Title"] = "Login";
+}
+<body class="" style="height:80vh ">
+    <h1 style="text-align:center" class="lang">Login</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4  mx-auto">
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label lang"></label>
+                    <input type=password asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="pt-3" style="text-align:center">
+                    <a class="btn btn-outline-dark text-dark" href="/users/googleauth" role="button" style="text-transform:none">
+                        <img style="width:20px;margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                        <p class="lang float-end mb-0">Login with Google</p>
+                    </a>
+                </div>
+                <div class="form-group pt-3" style="text-align:center;">
+                    <input type="submit" value="Login" class="btn lang btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    function switchLanguage() {
+        var language = getLanguage();
+        items = document.getElementsByClassName("lang")
+        if (language == "pl") {
+            document.title = "Zaloguj"
+            items[0].textContent = "Zaloguj"
+            items[1].textContent = "Hasło"
+            items[2].textContent = items[2].textContent.replace("Login with Google", "Zaloguj przez Google")
+            items[3].value = "Zaloguj"
+        }
+        else if (language == "en") {
+            document.title = "Login"
+            items[0].textContent = "Login"
+            items[1].textContent = "Password"
+            items[2].textContent = items[2].textContent.replace("Zaloguj przez Google","Login with Google")
+            items[3].value = "Login"
+        }
+
+    }
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

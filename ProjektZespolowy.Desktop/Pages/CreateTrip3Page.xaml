@@ -1,0 +1,72 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.CreateTrip3Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:WPF="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="CreateTrip3Page">
+
+    <Canvas Background="White">
+        <Label x:Name="m_PageTitle" Content="Tworzenie nowej wycieczki 3/3 - Podsumowanie" HorizontalContentAlignment="Center" Height="58" Width="1300" FontSize="24" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Border Canvas.Left="400" Canvas.Top="65" HorizontalAlignment="Left" VerticalAlignment="Center" Width="900">
+            <WPF:BrowserView x:Name="m_webBrowser" Height="665" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="260" Foreground="{x:Null}"></WPF:BrowserView>
+        </Border>
+
+        <Label Content="Podsumowanie:" Canvas.Left="117" Canvas.Top="20" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+        <Button x:Name="m_BtnCreateTrip" Content="Stwórz wycieczkę" Canvas.Left="165" Canvas.Top="660" Height="36" Width="180" Background="#FF009101" Foreground="White" Click="Button_CreateTrip" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="Godzina rozpoczęcia:" Canvas.Left="10" Canvas.Top="177" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Data rozpoczecia:" Canvas.Left="10" Canvas.Top="145" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Widoczność:" Canvas.Left="11" Canvas.Top="114" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Godzina zakończenia:" Canvas.Left="10" Canvas.Top="209" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Środek transportu:" Canvas.Left="10" Canvas.Top="241" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Liczba miejsc do odwiedzenia:" Canvas.Left="10" Canvas.Top="273" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+
+        <ListView x:Name="m_ActivitiesList" MouseDoubleClick="UnSelectedPlace" SelectionChanged="OnSelectionChanged" Canvas.Top="380" Height="270" Width="388" HorizontalAlignment="Left" VerticalAlignment="Center" IsSynchronizedWithCurrentItem="True" Canvas.Left="5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Nr" Width="40" DisplayMemberBinding="{Binding Sequence}" />
+                    <GridViewColumn Header="Nazwa miejsca" Width="225" DisplayMemberBinding="{Binding Place.Name}" />
+                    <GridViewColumn Header="Czas [h]" Width="52" DisplayMemberBinding="{Binding TimeForPlace}" />
+                    <GridViewColumn Header="Koszt [PLN]" Width="65" DisplayMemberBinding="{Binding BudgetForPlace}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="m_BeginHour" Content="" Canvas.Left="162" Canvas.Top="177" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="m_Date" Content="" Canvas.Left="149" Canvas.Top="145" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="m_StopHour" Content="" Canvas.Left="170" Canvas.Top="209" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="m_TransportType" Content="" Canvas.Left="156" Canvas.Top="241" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Width="auto"/>
+        <Label x:Name="m_PlaceCount" Content="" Canvas.Left="237" Canvas.Top="273" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto"/>
+        <Label Content="Autor:" Canvas.Left="10" Canvas.Top="83" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Tytuł:" Canvas.Left="10" Canvas.Top="51" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="m_TitleLabel" Content="" Canvas.Left="63" Canvas.Top="51" FontSize="16" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="m_AuthorLabel" Content="" Canvas.Left="69" Canvas.Top="83" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Width="auto"/>
+
+        <Button Content="Wróc" Canvas.Left="29" Canvas.Top="660" Height="36" Width="80" Background="#FFDE8D00" Foreground="White" Click="Button_GoBack" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label x:Name="m_Visibility" Content="" Canvas.Left="114" Canvas.Top="114" FontSize="16" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Budżet:" Canvas.Left="10" Canvas.Top="304" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Opis:" Canvas.Left="10" Canvas.Top="335" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="m_Budget" Content="" Canvas.Left="77" Canvas.Top="304" FontSize="16" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox TextWrapping="Wrap" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="m_Desc" Text="" Height="35" Width="332" Canvas.Left="58" Canvas.Top="335" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Height="665" Canvas.Left="398" Stroke="Black" Canvas.Top="65" Width="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Height="2" Canvas.Left="398" Stroke="Black" Canvas.Top="63" Width="902" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+    </Canvas>
+</Page>

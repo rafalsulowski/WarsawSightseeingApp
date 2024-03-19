@@ -1,0 +1,277 @@
+﻿@model ProjektZespolowy.Models.DTO.PostDTO
+
+@{
+    ViewData["Title"] = "Post";
+    int VotesSum = Model.VotesFor + Model.VotesAgainst;
+    string likeStr;
+    int numberOfLikes = Model.Likes.Select(u => u.IsLiked).ToList().Count;
+    int likeID = Model.IsLikedByCurrentUser ? 1 : 0;
+    if(Model.IsLikedByCurrentUser)
+    {
+        likeStr = "❤️ " + numberOfLikes;
+    } else
+    {
+        likeStr = "🤍 " + numberOfLikes;
+    }
+}
+
+<!--<h1 class="border border-primary rounded-pill text-center pb-2">@Html.DisplayFor(model => model.Title)</h1>-->
+
+
+<div class="border-bottom border-primary pb-2 border-3 position-relative">
+    <h1 class="fw-bold">@Html.DisplayFor(model => model.Title)</h1>
+    <form asp-action="LikePost" id="likepost" class="mx-auto" target="dummyframe" onsubmit="likePost()">
+        <div class="form-group">
+            <input name="IsLiked" id="likeIdentifier" value="@likeID" type="hidden">
+            <input name="PostId" type="hidden" value="@Html.DisplayFor(model => model.Id)">
+            <input type="submit" id="likes" value="@likeStr" class="btn btn-primary col">
+        </div>
+    </form>
+    
+    <br>
+    <small class="lang">by @Html.DisplayFor(model => model.Author)</small>
+    @*@if (Model.Type != ProjektZespolowy.Models.PostType.Information) // chcialem ukryc przycisk do komentarzy dla postow informacyjnych ale jest jakis dziwny bug wtedy nw czemu
+    {
+        <a id="comments-link" class="lang position-absolute bottom-0 end-0"><small>To comments</small></a>
+    }*@
+
+    @if (Model.UserId == int.Parse(ViewData["user-id"].ToString()))
+    {
+        <a asp-controller="Forum" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edytuj</a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#postDelete">
+            Usuń
+        </button>
+    }
+    
+    @if (Model.Type != ProjektZespolowy.Models.PostType.Information)
+    {
+        <a id="comments-link" class="lang position-absolute bottom-0 end-0"><small>To comments</small></a>
+    }
+   
+</div>
+
+<div class="modal fade" id="postDelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Post</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to Remove this Post?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                <a asp-controller="Forum" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-success">Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="border border-2 p-2">
+    @Html.DisplayFor(model => model.Content)
+</div>
+@if (Model.Type == ProjektZespolowy.Models.PostType.Voting)
+{
+    <div id="voting-section">
+        <p class="border-bottom border-primary pb-2 border-2 fw-bold">Voting</p>
+        <p>Agree: <b id="votes-for-count">@Model.VotesFor</b></p>
+        <div class="progress">
+            @if (VotesSum == 0)
+            {
+                <div id="votes-for-bar" class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @(0)%" aria-valuenow="@(0)" aria-valuemin="0" aria-valuemax="100"></div>
+            } else
+            {
+                <div id="votes-for-bar" class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: @(0)%" aria-valuenow="@(0)" aria-valuemin="0" aria-valuemax="100"></div>
+            }
+            </div>
+        <p class="pt-3">Disagree: <b id="votes-against-count"> @Model.VotesAgainst </b></p>
+        <div class="progress">
+            @if (VotesSum == 0)
+            {
+                <div id="votes-against-bar" class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: @(0)%" aria-valuenow="@(0)" aria-valuemin="0" aria-valuemax="100"></div>
+            }
+            else
+            {
+                <div id="votes-against-bar" class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: @(Model.VotesAgainst*100/(VotesSum))%" aria-valuenow="@(Model.VotesAgainst*100/(VotesSum))" aria-valuemin="0" aria-valuemax="100"></div>
+            }
+            
+        </div>
+        <p class="pt-3 fw-bold"> Your vote  </p>
+        <div id="user-vote-buttons" class="d-flex">
+            <!--https://stackoverflow.com/questions/25983603/how-to-submit-an-html-form-without-redirection-->
+            
+            <form asp-action="Vote" class="me-2" target="dummyframe" onsubmit="vote(this,'Agree')">
+                <input name="VoteType" type="hidden" value="Disagree">
+                <input name="PostId" type="hidden" value="@Html.DisplayFor(model => model.Id)">
+                <input id="vote-agree" type="submit" value="Agree" class="btn btn-secondary">
+            </form>
+            <form asp-action="Vote" class="ms-2" target="dummyframe" onsubmit="vote(this,'Disagree')">
+                <input name="VoteType" type="hidden" value="Agree">
+                <input name="PostId" type="hidden" value="@Html.DisplayFor(model => model.Id)">
+                <input id="vote-disagree" type="submit" value="Disagree" class="btn btn-secondary">
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+}
+<br />
+@if (Model.Type != 0)
+{
+    <div id="comment-section">
+        <p class="border-bottom border-primary pb-2 border-2 fw-bold lang">Comments</p>
+        @foreach (var item in Model.Comments)
+        {
+            <div class="border shadow-sm mb-2">
+                <small class="border-bottom ps-1">@Html.DisplayFor(modelItem => item.Author)</small>
+                <p class="ps-1">@Html.DisplayFor(modelItem => item.Content)</p>
+            </div>
+
+        }
+        <form asp-action="CreateComment" class="mx-auto">
+
+            <div class="form-group">
+                <div class="row m-0">
+                    <label class="lang">Comment</label>
+                    <input name="Comment" class="border border-none float-end col-10" autocomplete="off">
+                    <input name="PostId" type="hidden" value="@Html.DisplayFor(model => model.Id)">
+                    <input type="submit" value="Send" class="lang btn btn-primary col">
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+
+<div>
+    <a asp-action="Index" class="lang">Back to List</a>
+</div>
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<script>
+    var VotesFor = parseInt(@Model.VotesFor)
+    var VotesAgainst = parseInt(@Model.VotesAgainst)
+    var VotesSum = VotesFor + VotesAgainst
+
+
+    var UserVoted = false;
+
+    function vote(item, voteType) {
+        //Funkcja czysto graficzna, czesc UI a nie funkcjonalnosci
+
+        if (voteType == "Agree") {
+            var usedVote = document.getElementById("vote-agree")
+            var otherVote = document.getElementById("vote-disagree")
+            usedVote.classList = "btn btn-info disabled"
+            otherVote.classList = "btn btn-secondary"
+
+            VotesFor += 1;
+
+            if (UserVoted) {
+                VotesAgainst -= 1;
+            }
+
+        } else {
+            var usedVote = document.getElementById("vote-disagree")
+            var otherVote = document.getElementById("vote-agree")
+            usedVote.classList = "btn btn-danger disabled"
+            otherVote.classList = "btn btn-secondary"
+
+            VotesAgainst += 1;
+
+            if (UserVoted) {
+                VotesFor -= 1;
+            }
+        }
+        UserVoted = true;
+
+        VotesSum = VotesFor + VotesAgainst;
+
+        if(VotesSum == 0){
+            document.getElementById("votes-for-bar").style.width = 0 + "%";
+            document.getElementById("votes-against-bar").style.width = 0 + "%";
+            document.getElementById("votes-for-count").innerHTML = 0
+            document.getElementById("votes-against-count").innerHTML = 0
+        } else{
+            document.getElementById("votes-for-bar").style.width = VotesFor * 100 / VotesSum + "%";
+            document.getElementById("votes-against-bar").style.width = VotesAgainst * 100 / VotesSum + "%";
+            document.getElementById("votes-for-count").innerHTML = VotesFor
+            document.getElementById("votes-against-count").innerHTML = VotesAgainst
+        }
+
+        
+
+    }
+
+
+    document.getElementById("comments-link").addEventListener('click', function (e) {
+        e.preventDefault();
+        const cs = document.getElementById("comment-section");
+        cs.scrollIntoView();
+    })
+</script>
+
+<script>
+    function likePost() {
+        //isLiked?
+        document.getElementById("likepost").submit()
+        item = document.getElementById("likes")
+        likeId = document.getElementById("likeIdentifier")
+        var content = item.value.split(' ');
+        var likeCount = parseInt(content[1])
+        if (content[0] == "🤍") {
+            item.value = "❤️ " + (likeCount + 1);
+            likeId.value = "0"
+        } else {
+            item.value = "🤍 " + (likeCount - 1);
+            likeId.value = "1"
+        }
+        //return false i return przy onclick zapobiegaja przekierowaniu
+        return false;
+    }
+</script>
+<script>
+    function switchLanguage() {
+        var language = getLanguage();
+        @if (Model.Type != 0){@Html.Raw("var comments = 1;\n")} else {@Html.Raw("var comments=0;\n")}
+        items = document.getElementsByClassName("lang")
+        if (language == "pl") {
+            if (comments==1){
+                items[0].textContent = items[0].textContent.replace("by ", "przez ");
+                items[1].textContent = "Do komentarzy";
+                items[2].textContent = "Komentarze";
+                items[3].textContent = "Dodaj komentarz";
+                items[4].value = "Dodaj";
+                items[5].textContent = "Powrót do listy";
+            } else {
+                items[0].textContent = items[0].textContent.replace("by ", "przez ");
+                //items[1].textContent = "Do komentarzy";
+                items[1].textContent = "Powrót do listy";
+            }
+            
+            }
+        else if (language == "en") {
+            if (comments==1){
+                items[0].textContent = items[0].textContent.replace("przez ", "by ");
+                items[1].textContent = "To comments";
+                items[2].textContent = "Comments";
+                items[3].textContent = "Add comment";
+                items[4].value = "Send";
+                items[5].textContent = "Back to list";
+            } else {
+                items[0].textContent = items[0].textContent.replace("przez ", "by ");
+                items[1].textContent = "To comments";
+                items[2].textContent = "Back to list";
+            }
+            
+     
+        }
+
+    }
+</script>

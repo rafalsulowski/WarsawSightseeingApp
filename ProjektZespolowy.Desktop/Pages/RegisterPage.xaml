@@ -1,0 +1,39 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.RegisterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="RegisterPage">
+
+
+    <Canvas Background="White">
+        <Image Source="C:\Users\01159502\Desktop\develop\ProjektZespolowy\ProjektZespolowy.Desktop/images/city-background.jpg" Height="900" Width="1300" HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="Fill" Visibility="Visible" IsEnabled="False" Canvas.Left="0" Canvas.Top="-149"/>
+        <Label Canvas.Left="503" HorizontalContentAlignment="Center"  Canvas.Top="65" Height="69" Width="294" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" Content="Rejestracja"/>
+        <Button Content="Zarejestruj"  BorderThickness="2" BorderBrush="Black"  Canvas.Left="402" Canvas.Top="472" Height="62" Width="150" Background="#FF007BFF" FontSize="25" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Register">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button Content="Wróć"  BorderThickness="2" BorderBrush="Black"  Canvas.Left="720" Canvas.Top="473" Height="60" Width="134" Background="#FF007BFF" FontSize="28" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Click="Button_Go_Back">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="E-mail:" Canvas.Left="383" Canvas.Top="210" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Hasło:" Canvas.Left="383" Canvas.Top="314" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="m_Login" Canvas.Left="650" TextWrapping="Wrap" Text="" Canvas.Top="218" Width="373" SelectionOpacity="5" FontSize="20" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <PasswordBox Name="m_Password" Canvas.Left="650" Canvas.Top="318" Width="373" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
+        <Label Content="Powtórz hasło:" Canvas.Left="383" Canvas.Top="365" HorizontalAlignment="Center" VerticalAlignment="Top" Width="157" FontSize="20"/>
+        <PasswordBox x:Name="m_RetypePassword"  Canvas.Left="650" Canvas.Top="373" Width="373" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center"/>
+        <Label Content="Nazwa użytkownika:" HorizontalContentAlignment="Right" Canvas.Left="383" Canvas.Top="262" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center" Width="187" RenderTransformOrigin="0.381,0.474"/>
+        <TextBox x:Name="m_UserName" Canvas.Left="650" TextWrapping="Wrap" Text="" Canvas.Top="270" Width="373" SelectionOpacity="5" FontSize="20" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+    </Canvas>
+</Page>

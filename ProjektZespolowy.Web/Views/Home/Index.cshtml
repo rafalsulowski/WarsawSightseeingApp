@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "_LoadScriptsLayout";
+    ViewData["Title"] = "Home Page";
+    /*Zimowe
+    string url = "https://media0.giphy.com/media/tIHktzgRi8yjIplFVI/giphy.gif";
+    string url2 = "https://static.wixstatic.com/media/0baf78_a4a88190550c4590a1994415134dee7c~mv2.jpg/v1/fill/w_1500,h_843,al_c,q_90/file.jpg";
+    // https://europeinwinter.com/wp-content/uploads/2022/08/iStock-1357501926.jpeg
+    background-image:url('https://media0.giphy.com/media/tIHktzgRi8yjIplFVI/giphy.gif'),url('https://upload.wikimedia.org/wikipedia/commons/0/03/Panorama_of_Warsaw_by_night_%28cropped%29.jpg')
+    */
+    string url2 = "https://upload.wikimedia.org/wikipedia/commons/0/03/Panorama_of_Warsaw_by_night_%28cropped%29.jpg";
+
+}
+<script>
+    function getLanguage() {
+        (localStorage.getItem('language') == null) ? setLanguage('pl') : false;
+        var language = localStorage.getItem('language')
+        return language
+    }
+    function switchLanguage(){
+        var language = getLanguage();
+        items = document.getElementsByClassName("lang")
+        if (language=="pl"){
+            document.title = "Strona domowa"
+            items[0].textContent = "Poznaj Warszawę z nami"
+            items[1].textContent = "Zaloguj się"
+            items[2].textContent = "Zarejestruj się"
+            }
+        else if(language=="en"){
+            document.title = "Home page"
+            items[0].textContent = "Explore Warsaw with us"
+            items[1].textContent = "Login"
+            items[2].textContent = "Register"
+        }
+        
+    }
+    window.onload = switchLanguage
+</script>
+<body style="height:80vh;background-image:url('https://krakowairport.pl/blog/wp-content/uploads/2020/11/Daniel_Remian_Panorama_Warszawy_1450.jpg');
+background-repeat:no-repeat; background-size:cover; background-position:42%;">
+
+    <div class="" style="">
+        
+        <h1 class="text-center display-2 text-light lang" style="text-shadow: 2px 2px 4px #000000;font-family:Tahoma">
+            Explore Warsaw with us
+        </h1>
+
+        <div class="pt-3" style="text-align:center">
+            <a class="w-25 btn bg-info welcome-btn text-light lang" href="/home/login" role="button" style="text-transform:none">
+                Login
+            </a>
+            <a class="w-25 btn bg-info welcome-btn text-light lang" href="/home/register" role="button" style="text-transform:none">
+                Register
+            </a>
+        </div>
+    </div>
+</body>
+
+
+<style>
+    .welcome-btn {
+        border-radius: 0;
+        font-family: Tahoma;
+    }
+</style>

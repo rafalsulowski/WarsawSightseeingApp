@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProjektZespolowy.Models.DTO.PostDTO>
+
+@{
+    Random rnd = new Random();
+    ViewData["Title"] = "Forum";
+}
+
+<h1 class="text-center lang">Welcome to our forum!</h1>
+
+<ul class="list-group">
+    <div>
+        <a asp-area="" asp-controller="Forum" asp-action="CreatePost" class="lang bg-primary text-light border border-none float-end d-flex flex-row-reverse text-decoration-none pe-2 ps-2">Create new post</a>
+    </div>
+    @foreach (var item in Model)
+    {
+        <a href="/forum/post/@Html.DisplayFor(modelItem => item.Id)" class="list-group-item list-group-item-action flex-column align-items-start ">
+            <div class="d-flex w-100 justify-content-between">
+                @if (item.Type == 0)
+                {
+                    <h5 class="mb-1 text-info">@Html.DisplayFor(modelItem => item.Title)</h5>
+                }
+                else if (item.Type == ProjektZespolowy.Models.PostType.Discussion)
+                {
+                    <h5 class="mb-1 text-success">@Html.DisplayFor(modelItem => item.Title)</h5>
+
+                }
+                else
+                {
+                    <h5 class="mb-1 text-danger">@Html.DisplayFor(modelItem => item.Title)</h5>
+                }
+
+                
+
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+                @if (item.Content.ToString().Length > 41)
+                {
+                    <p class="mb-1 text-truncate">@item.Content.ToString().Substring(0, 40)...</p>
+                }
+                else
+                {
+                    <p class="mb-1">@item.Content.ToString()</p>
+                }
+
+                @if (item.Type != 0)
+                {
+                    <small>☁️ @item.Comments.Count</small>
+                }
+            </div>
+
+            <!--<small>@rnd.Next(10,30).@rnd.Next(10,12).2022</small>-->
+        </a>
+    }
+</ul>
+<script>
+    function switchLanguage() {
+        var language = getLanguage();
+        items = document.getElementsByClassName("lang")
+        if (language == "pl") {
+            items[0].textContent = "Witamy na forum!"
+            items[1].textContent = "Utwórz post"
+        }
+        else if (language == "en") {
+            items[0].textContent = "Welcome to our forum!"
+            items[1].textContent = "Create new post"
+        }
+
+    }
+</script>

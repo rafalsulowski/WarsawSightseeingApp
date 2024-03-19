@@ -1,0 +1,79 @@
+﻿@model ProjektZespolowy.Models.Post
+
+@{
+    ViewData["Title"] = "Create new post";
+}
+
+<h1 class="lang">Create new post</h1>
+
+<hr />
+<div class="row">
+    <div class="">
+        <form asp-action="CreatePost">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group w-50">
+                <label asp-for="Title" class="control-label lang"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group w-50">
+                <label class="control-label lang">Post type</label>
+                <select name="Type" class="form-select" aria-label="Information">
+                    <option value="1" class="lang">Information</option>
+                    <option value="2" selected class="lang">Discussion</option>
+                    <option value="3" class="lang">Voting</option>
+                </select>
+            </div>
+            <div class="form-group h-50">
+                <label asp-for="Content" class="control-label lang"></label>
+                <textarea asp-for="Content" class="form-control" rows="12"> </textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <a asp-action="Index" class="lang btn bg-danger text-light lang">Back to List</a>
+                <input type="submit" value="Create" class="lang btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script>
+    function switchLanguage() {
+        var language = getLanguage();
+        items = document.getElementsByClassName("lang")
+        if (language == "pl") {
+            document.title = "Utwórz post"
+            items[0].textContent = "Utwórz nowy post"
+            items[1].textContent = "Tytuł"
+            items[2].textContent = "Typ postu"
+            items[3].textContent = "Informacyjny"
+            items[4].textContent = "Dyskusja"
+            items[5].textContent = "Głosowanie"
+            items[6].textContent = "Zawartość"
+            items[7].textContent = "Anuluj"
+            items[8].value = "Utwórz"
+        }
+        else if (language == "en") {
+            document.title = "Create post"
+            items[0].textContent = "Create new post"
+            items[1].textContent = "Title"
+            items[2].textContent = "Post type"
+            items[3].textContent = "Information"
+            items[4].textContent = "Discussion"
+            items[5].textContent = "Voting"
+            items[6].textContent = "Content"
+            items[7].textContent = "Back to list"
+            items[8].value = "Create"
+        }
+
+    }
+</script>

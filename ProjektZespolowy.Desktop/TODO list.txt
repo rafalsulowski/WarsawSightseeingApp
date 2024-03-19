@@ -1,0 +1,53 @@
+Strona Aktywności:
+-dodać obsluge like'owania
+-dodać filtrowanie aktywności (po wieku, po godzinach otwarcia, po cenie, po ocenie miejsca)
+-dodać sortowanie aktywności (po cenie, po ocenie miejsca, po ilości like'ów, po ilości komentarzy, po ilości ludzi zadklarowanych na dany 
+dzień)
+
+
+Strona z wybraną aktywnością:
+-dodać obsługę like'owania i dislike'owania komentarza
+-dodać możliwość dodawania nowych komentarzy
+-dodać opcję edycji naszego komentarza
+
+
+Strona z forum:
+-dodać liste postów
+-dodać opcję like'owania posta
+-dodać opcje wejścia do szczegółów posta
+
+
+Strona z szczególnym postem:
+-dodać wyświetlanie informacji
+-dodać listę komentarzy
+-dodać opcje oddanai nowego komentarza
+-dodać opcję like'owania i dislike'owania komentarzy
+-dodać opcję edycji naszego komentarza
+
+
+
+Strona z informacjami o uzytkowniku:
+-dodać wyświetlanie listy napisanych komentarzy
+-dodać wyświetlanie listy polubionych aktywności, postów
+-dodać przycisk do strony konfiguracja apliakcji
+
+
+Strona z wycieczkami:
+-dodać modliwość dodawania kolejnych przystanków
+
+
+Strona z mapą:
+-dodać listę aktywności w panelu bocznym lub jesli uzytkownik ma zapisane zaplanowane wycieczki to wypisać wycieczki (po kliknieciu przechodzimy na stronę danej aktywności lub pokazujemy plan wycieczki na mapie)
+-dodać wyświetlanie mapy z zaznaczonymi punkatami aktywności
+
+
+Strona logowania:
+-obsłużyć logowanie za pomocą konta google
+
+Strona powitalna:
+-poprawić layout strony powitalnej
+
+
+Strona Konfiguracja Aplikacji:
+-dodać opcję zmiany motywu kolorystycznego
+

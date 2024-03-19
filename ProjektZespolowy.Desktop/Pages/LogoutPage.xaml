@@ -1,0 +1,24 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.LogoutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="LogoutPage">
+
+    <Canvas Background="White">
+        <Label Canvas.Left="529" Canvas.Top="225" FontSize="24" Content="Zostałeś wylogowany!" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Canvas.Left="587" Canvas.Top="272" FontSize="18" Content="Do zobaczenia" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button Content="Wróć do strony startowej" Canvas.Left="575" Canvas.Top="325" Height="40" Width="150" Background="#FF007BFF" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Click="Button_WelcomPage">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+    </Canvas>
+</Page>

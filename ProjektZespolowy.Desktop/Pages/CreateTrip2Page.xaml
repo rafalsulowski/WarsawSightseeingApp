@@ -1,0 +1,130 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" x:Class="ProjektZespolowy.Desktop.Pages.CreateTrip2Page"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="CreateTrip2Page">
+
+    <Canvas Background="White">
+        <Label x:Name="m_PageTitle" Content="Tworzenie nowej wycieczki 2/3" HorizontalContentAlignment="Center" Height="55" Width="1300" FontSize="24" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="m_NumberOfPlace" HorizontalContentAlignment="Center" Content="" Canvas.Left="191" Canvas.Top="47" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Width="32"/>
+        <Label Content="Dodaj " Canvas.Left="138" Canvas.Top="47" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="miejsce pobytu:" Canvas.Left="223" Canvas.Top="47" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="m_Search" Text="" KeyUp="SearchPlace" Canvas.Left="112" TextWrapping="Wrap" Canvas.Top="92" Width="380" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
+
+
+        <ListView x:Name="m_ActivitiesList" SelectionChanged="SelectedPlace" MouseDoubleClick="SelectedPlaceAfterDoubleClick" Canvas.Left="21" Canvas.Top="133" Height="392" Width="499" HorizontalAlignment="Center" VerticalAlignment="Top" IsSynchronizedWithCurrentItem="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Name" Width="255" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Średni czas [min]" Width="100" DisplayMemberBinding="{Binding AverageTimeSpent}" />
+                    <GridViewColumn Header="Średni koszt [PLN]" Width="105" DisplayMemberBinding="{Binding EstimatedCost}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
+        <Button Content="Dodaj miejsce do wycieczki" Canvas.Left="238" Canvas.Top="652" Height="40" Width="182" Background="#FF009101" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Add">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Label Content="Wyszukaj:" Canvas.Left="23" Canvas.Top="90" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84"/>
+
+        <Button Content="Wróc" Canvas.Left="89" Canvas.Top="654" Height="38" Width="80" Background="#FFDE8D00" Foreground="White" Click="Button_GoBack" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="Wybrano:" Canvas.Left="26" Canvas.Top="532" FontSize="18" Width="98" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="m_SelectedItemFromList" Content="" Canvas.Left="133" Canvas.Top="532" FontSize="18" Width="364" HorizontalAlignment="Left" VerticalAlignment="Top" Height="Auto" Foreground="Red"/>
+        <Label Content="Plan wycieczki:" Canvas.Left="869" Canvas.Top="73" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+
+        <Rectangle Height="665" Canvas.Left="544" Stroke="Black" Canvas.Top="65" Width="2" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="Black"/>
+
+        <TextBox TextWrapping="Wrap" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="m_Desc" Text="" Height="40" Width="648" Canvas.Left="602" Canvas.Top="190" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Godz. startu:" Canvas.Left="719" Canvas.Top="115" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto"/>
+        <Label Content="Data:" Canvas.Left="551" Canvas.Top="116" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        <ListView x:Name="m_SummaryPlaces" Canvas.Left="592" Canvas.Top="250" Height="373" Width="658" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Kolejność odwiedzania" Width="140" DisplayMemberBinding="{Binding Sequence}" />
+                    <GridViewColumn Header="Name" Width="335" DisplayMemberBinding="{Binding Place.Name}" />
+                    <GridViewColumn Header="Czas [godz.]" Width="90" DisplayMemberBinding="{Binding TimeForPlace}" />
+                    <GridViewColumn Header="Koszt [PLN]" Width="85" DisplayMemberBinding="{Binding BudgetForPlace}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Content="Wyznacz trase" Canvas.Left="1100" Canvas.Top="646" Height="40" Width="141" Background="#FF007BFF" Foreground="White" Click="Button_DoRoute" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="Godz. końca:" Canvas.Left="897" Canvas.Top="116" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Środek transportu:" Canvas.Left="552" Canvas.Top="151" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="m_StartHour" Content="" Canvas.Left="835" Canvas.Top="116" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="auto"/>
+        <Label x:Name="m_Date" Content="" Canvas.Left="607" Canvas.Top="116" FontSize="18" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="m_EndHour" Content="" Canvas.Left="1014" Canvas.Top="115" FontSize="18" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="m_transportType" Content="" Canvas.Left="714" Canvas.Top="151" FontSize="18" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+        <Button Content="Usuń zaznaczony wiersz" Canvas.Left="592" Canvas.Top="630" Height="35" Width="160" Background="#FFFF5050" Foreground="White" Click="Button_DeletePlace" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button x:Name="MoveDown" Canvas.Left="592" Canvas.Top="670" Height="35" Width="60" Background="#FF007BFF" Foreground="White" Click="Button_MoveDown" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+            <Path Fill="White" Data="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" Height="20" Stretch="Fill" Width="20" />
+        </Button>
+
+        <Button x:Name="MoveUp" Canvas.Left="692" Canvas.Top="670" Height="35" Width="60" Background="#FF007BFF" Foreground="White" Click="Button_MoveUp" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+            <Path Fill="White" Data="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" Height="20" Stretch="Fill" Width="20" />
+        </Button>
+        <Label Content="Widoczność:" Canvas.Left="911" Canvas.Top="151" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="m_Visibility" Content="" Canvas.Left="1025" Canvas.Top="151" FontSize="18" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Czas przeznaczony na tą atrakcję:" Canvas.Left="21" Canvas.Top="565" FontSize="18" Width="274" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox x:Name="m_TimeSpend" Text="2" Canvas.Left="319" TextWrapping="Wrap" Canvas.Top="571" Width="121" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="godz." Canvas.Left="459" Canvas.Top="565" FontSize="18" Width="61" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Budżet:" Canvas.Left="1100" Canvas.Top="116" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="PLN" Canvas.Left="1220" Canvas.Top="116" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="m_Budget" Content="" Canvas.Left="1174" Canvas.Top="115" FontSize="18" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Opis:" Canvas.Left="552" Canvas.Top="185" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Zajętość czasu:" Canvas.Left="836" Canvas.Top="629" FontSize="18" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="" x:Name="m_TimeCapacity" Canvas.Left="962" Canvas.Top="629" FontSize="18" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Wykorzystano budżet:" Canvas.Left="778" Canvas.Top="668" FontSize="18" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="" x:Name="m_BudgetCapacity" Canvas.Left="963" Canvas.Top="668" FontSize="18" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Budżet przeznaczony na tą atrakcję:" Canvas.Left="21" Canvas.Top="601" FontSize="18" Width="288" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="m_BudgetSpend" Text="1" Canvas.Left="319" TextWrapping="Wrap" Canvas.Top="607" Width="121" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="PLN" Canvas.Left="459" Canvas.Top="601" FontSize="18" Width="61" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+    </Canvas>
+</Page>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ProjektZespolowy.Models.Trip>
+
+
+@{
+    ViewData["Title"] = "Wycieczki";
+}
+<div class="text-center mb-5">
+    <a href="/Trips/Create" class="btn btn-primary">Dodaj nową wycieczkę</a>
+</div>
+<div class="places-grid">
+    @foreach (var item in Model)
+    {
+        <div class="justify-content-center d-flex">
+            <div class="card place-card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Date)</p>
+                    <a class="btn btn-primary modal-link"
+                    href="/Trips/Details/@Html.DisplayFor(modelItem => item.Id)">Szczegóły</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+<style>
+    .places-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,25vw);
+        grid-row-gap: 5em;
+        grid-column-gap: .5em;
+    }
+
+    .contrainer {
+        width: 100% !important
+    }
+
+</style>
+
+

@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="https://www.shareicon.net/data/512x512/2016/10/20/846396_letter_512x512.png">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/default-theme.css" />
+    <link rel="stylesheet" href="~/ProjektZespolowy.Web.styles.css" asp-append-version="true" />
+    
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark box-shadow mb-3" style="padding:0;">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">ProjektZespolowy.Web</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Forum" asp-action="Index">Forum</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Map" asp-action="Index">Map</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Places" asp-action="Index">Places</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Trips" asp-action="Index">Trips</a>
+                        </li>
+
+                        <li class="nav-item btn-group float-end">
+                            <button style="flex:0!important; padding-left:0px; padding-right:0px;" class="btn dropdown-toggle text-light navlang" type="button" id="dropdownMenu2" data-offset="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Language
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item" type="button" onclick="setLanguage('pl')">polski</button>
+                                <button class="dropdown-item" type="button" onclick="setLanguage('en')">english</button>
+                            </div>
+                        
+                        </li>
+                        @if (Context.Session.GetString("user-logged-in") == "true")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
+                            </li>
+                        }
+                        @if (Context.Session.GetString("user-logged-in") != "true")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light button-color-changer navlang" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!--
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - ProjektZespolowy.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>-->
+    <script>
+        function getLanguage() {
+            (localStorage.getItem('language') == null) ? setLanguage('pl') : false;
+            var language = localStorage.getItem('language')
+            return language
+        }
+        
+        function switchNavLanguage() {
+            var language = getLanguage();
+            items = document.getElementsByClassName("navlang")
+            if (language == "pl") {
+                items[0].textContent = "Strona domowa"
+                items[2].textContent = "Mapa"
+                items[3].textContent = "Miejsca"
+                items[4].textContent = "Wycieczki"
+                items[5].textContent = "Język"
+                try{
+                    items[6].textContent = "Profil"
+                    items[7].textContent = "Wyloguj"
+                } catch (e){
+                    //Niezalogowany
+                    items[6].textContent = "Zaloguj"
+                    console.log(e)
+                }
+            }
+            else if (language == "en") {
+                items[0].textContent = "Home"
+                items[1].textContent = "Map"
+                items[3].textContent = "Places"
+                items[4].textContent = "Trips"
+                items[5].textContent = "Language"
+                try {
+                    items[6].textContent = "Profile"
+                    items[7].textContent = "Logout"
+                } catch (e) {
+                    //Niezalogowany
+                    items[6].textContent = "Login"
+                    console.log(e)
+                }
+            }
+            
+
+        }
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang);
+            switchNavLanguage();
+            try{
+                switchLanguage();
+            } catch(e){
+                console.log("Dodaj funkcję zmiany języka")
+            }
+            
+        }
+        
+        window.onload = function(){
+            try {
+                switchLanguage();
+            } catch (e) {
+                console.log("Dodaj funkcję zmiany języka")
+            }
+            switchNavLanguage();
+        }
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,349 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.CreatePlacePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="CreatePlacePage">
+
+    <Canvas Background="White">
+        <Label Content="Tworzenie nowego miejsca" HorizontalContentAlignment="Center" Height="55" Width="1300" FontSize="24" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
+
+        <Label HorizontalContentAlignment="Right" Content="Nazwa:" Canvas.Left="74" Canvas.Top="114" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label HorizontalContentAlignment="Right" Content="Opis:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="91" Canvas.Top="149"/>
+        <Label HorizontalContentAlignment="Right" Content="Koordynaty:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="36" Canvas.Top="189"/>
+        <TextBox x:Name="m_Name" Text="" Canvas.Left="145" TextWrapping="Wrap" Canvas.Top="118" Width="1115" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26"/>
+
+        <Button Content="Utwórz" Canvas.Left="570" Canvas.Top="470" Height="50" Width="160" Background="#FF007BFF" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_CreatePlace">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label HorizontalContentAlignment="Right" Content="Średni koszt:" FontSize="18" Canvas.Left="30" Canvas.Top="259" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label HorizontalContentAlignment="Right" Content="Preferowany minimalny wiek:" FontSize="18" Canvas.Left="46" Canvas.Top="369" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label HorizontalContentAlignment="Right" Content="Preferowany maksymalny wiek:" FontSize="18" Canvas.Left="414" Canvas.Top="369" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label HorizontalContentAlignment="Right" Content="Adres:" FontSize="18" Canvas.Left="81" Canvas.Top="224" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label HorizontalContentAlignment="Right" Content="Godzina otwarcia:" FontSize="18" Canvas.Left="51" Canvas.Top="309" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label HorizontalContentAlignment="Right" Content="Godzina zamknięcia:" FontSize="18" Canvas.Top="309" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="363" RenderTransformOrigin="0.519,1.57"/>
+        <TextBox x:Name="m_Desc" Text=""  Canvas.Left="145" TextWrapping="Wrap" Canvas.Top="153" Width="1115" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="m_Cords" Text=""  Canvas.Left="145" TextWrapping="Wrap" Canvas.Top="193" Width="1115" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="m_Address" Text=""  Canvas.Left="145" TextWrapping="Wrap" Canvas.Top="228" Width="1115" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox x:Name="m_EstimatedCost" Text=""  Canvas.Left="145" TextWrapping="Wrap" Canvas.Top="263" Width="1115" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        <ComboBox x:Name="m_startHour" Canvas.Left="212" Canvas.Top="313" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <ComboBoxItem Content="0:00"></ComboBoxItem>
+            <ComboBoxItem Content="0:30"></ComboBoxItem>
+            <ComboBoxItem Content="1:00"></ComboBoxItem>
+            <ComboBoxItem Content="1:30"></ComboBoxItem>
+            <ComboBoxItem Content="2:00"></ComboBoxItem>
+            <ComboBoxItem Content="2:30"></ComboBoxItem>
+            <ComboBoxItem Content="3:00"></ComboBoxItem>
+            <ComboBoxItem Content="3:30"></ComboBoxItem>
+            <ComboBoxItem Content="4:00"></ComboBoxItem>
+            <ComboBoxItem Content="4:30"></ComboBoxItem>
+            <ComboBoxItem Content="5:00"></ComboBoxItem>
+            <ComboBoxItem Content="5:30"></ComboBoxItem>
+            <ComboBoxItem Content="6:00"></ComboBoxItem>
+            <ComboBoxItem Content="6:30"></ComboBoxItem>
+            <ComboBoxItem Content="7:00"></ComboBoxItem>
+            <ComboBoxItem Content="7:30"></ComboBoxItem>
+            <ComboBoxItem Content="8:00"></ComboBoxItem>
+            <ComboBoxItem Content="8:30"></ComboBoxItem>
+            <ComboBoxItem Content="9:00"></ComboBoxItem>
+            <ComboBoxItem Content="9:30"></ComboBoxItem>
+            <ComboBoxItem Content="10:00"></ComboBoxItem>
+            <ComboBoxItem Content="10:30"></ComboBoxItem>
+            <ComboBoxItem Content="11:00"></ComboBoxItem>
+            <ComboBoxItem Content="11:30"></ComboBoxItem>
+            <ComboBoxItem Content="12:00"></ComboBoxItem>
+            <ComboBoxItem Content="12:30"></ComboBoxItem>
+            <ComboBoxItem Content="13:00"></ComboBoxItem>
+            <ComboBoxItem Content="13:30"></ComboBoxItem>
+            <ComboBoxItem Content="14:00"></ComboBoxItem>
+            <ComboBoxItem Content="14:30"></ComboBoxItem>
+            <ComboBoxItem Content="15:00"></ComboBoxItem>
+            <ComboBoxItem Content="15:30"></ComboBoxItem>
+            <ComboBoxItem Content="16:00"></ComboBoxItem>
+            <ComboBoxItem Content="16:30"></ComboBoxItem>
+            <ComboBoxItem Content="17:00"></ComboBoxItem>
+            <ComboBoxItem Content="17:30"></ComboBoxItem>
+            <ComboBoxItem Content="18:00"></ComboBoxItem>
+            <ComboBoxItem Content="18:30"></ComboBoxItem>
+            <ComboBoxItem Content="19:00"></ComboBoxItem>
+            <ComboBoxItem Content="19:30"></ComboBoxItem>
+            <ComboBoxItem Content="20:00"></ComboBoxItem>
+            <ComboBoxItem Content="20:30"></ComboBoxItem>
+            <ComboBoxItem Content="21:00"></ComboBoxItem>
+            <ComboBoxItem Content="21:30"></ComboBoxItem>
+            <ComboBoxItem Content="22:00"></ComboBoxItem>
+            <ComboBoxItem Content="22:30"></ComboBoxItem>
+            <ComboBoxItem Content="23:00"></ComboBoxItem>
+            <ComboBoxItem Content="23:30"></ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="m_stopHour" Canvas.Left="550" Canvas.Top="313" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <ComboBoxItem Content="0:00"></ComboBoxItem>
+            <ComboBoxItem Content="0:30"></ComboBoxItem>
+            <ComboBoxItem Content="1:00"></ComboBoxItem>
+            <ComboBoxItem Content="1:30"></ComboBoxItem>
+            <ComboBoxItem Content="2:00"></ComboBoxItem>
+            <ComboBoxItem Content="2:30"></ComboBoxItem>
+            <ComboBoxItem Content="3:00"></ComboBoxItem>
+            <ComboBoxItem Content="3:30"></ComboBoxItem>
+            <ComboBoxItem Content="4:00"></ComboBoxItem>
+            <ComboBoxItem Content="4:30"></ComboBoxItem>
+            <ComboBoxItem Content="5:00"></ComboBoxItem>
+            <ComboBoxItem Content="5:30"></ComboBoxItem>
+            <ComboBoxItem Content="6:00"></ComboBoxItem>
+            <ComboBoxItem Content="6:30"></ComboBoxItem>
+            <ComboBoxItem Content="7:00"></ComboBoxItem>
+            <ComboBoxItem Content="7:30"></ComboBoxItem>
+            <ComboBoxItem Content="8:00"></ComboBoxItem>
+            <ComboBoxItem Content="8:30"></ComboBoxItem>
+            <ComboBoxItem Content="9:00"></ComboBoxItem>
+            <ComboBoxItem Content="9:30"></ComboBoxItem>
+            <ComboBoxItem Content="10:00"></ComboBoxItem>
+            <ComboBoxItem Content="10:30"></ComboBoxItem>
+            <ComboBoxItem Content="11:00"></ComboBoxItem>
+            <ComboBoxItem Content="11:30"></ComboBoxItem>
+            <ComboBoxItem Content="12:00"></ComboBoxItem>
+            <ComboBoxItem Content="12:30"></ComboBoxItem>
+            <ComboBoxItem Content="13:00"></ComboBoxItem>
+            <ComboBoxItem Content="13:30"></ComboBoxItem>
+            <ComboBoxItem Content="14:00"></ComboBoxItem>
+            <ComboBoxItem Content="14:30"></ComboBoxItem>
+            <ComboBoxItem Content="15:00"></ComboBoxItem>
+            <ComboBoxItem Content="15:30"></ComboBoxItem>
+            <ComboBoxItem Content="16:00"></ComboBoxItem>
+            <ComboBoxItem Content="16:30"></ComboBoxItem>
+            <ComboBoxItem Content="17:00"></ComboBoxItem>
+            <ComboBoxItem Content="17:30"></ComboBoxItem>
+            <ComboBoxItem Content="18:00"></ComboBoxItem>
+            <ComboBoxItem Content="18:30"></ComboBoxItem>
+            <ComboBoxItem Content="19:00"></ComboBoxItem>
+            <ComboBoxItem Content="19:30"></ComboBoxItem>
+            <ComboBoxItem Content="20:00"></ComboBoxItem>
+            <ComboBoxItem Content="20:30"></ComboBoxItem>
+            <ComboBoxItem Content="21:00"></ComboBoxItem>
+            <ComboBoxItem Content="21:30"></ComboBoxItem>
+            <ComboBoxItem Content="22:00"></ComboBoxItem>
+            <ComboBoxItem Content="22:30"></ComboBoxItem>
+            <ComboBoxItem Content="23:00"></ComboBoxItem>
+            <ComboBoxItem Content="23:30"></ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="m_minAge" Canvas.Left="290" Canvas.Top="373" Width="99" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem Content="31"/>
+            <ComboBoxItem Content="32"/>
+            <ComboBoxItem Content="33"/>
+            <ComboBoxItem Content="34"/>
+            <ComboBoxItem Content="35"/>
+            <ComboBoxItem Content="36"/>
+            <ComboBoxItem Content="37"/>
+            <ComboBoxItem Content="38"/>
+            <ComboBoxItem Content="39"/>
+            <ComboBoxItem Content="40"/>
+            <ComboBoxItem Content="41"/>
+            <ComboBoxItem Content="42"/>
+            <ComboBoxItem Content="43"/>
+            <ComboBoxItem Content="44"/>
+            <ComboBoxItem Content="45"/>
+            <ComboBoxItem Content="46"/>
+            <ComboBoxItem Content="47"/>
+            <ComboBoxItem Content="48"/>
+            <ComboBoxItem Content="49"/>
+            <ComboBoxItem Content="50"/>
+            <ComboBoxItem Content="51"/>
+            <ComboBoxItem Content="52"/>
+            <ComboBoxItem Content="53"/>
+            <ComboBoxItem Content="54"/>
+            <ComboBoxItem Content="55"/>
+            <ComboBoxItem Content="56"/>
+            <ComboBoxItem Content="57"/>
+            <ComboBoxItem Content="58"/>
+            <ComboBoxItem Content="59"/>
+            <ComboBoxItem Content="60"/>
+            <ComboBoxItem Content="61"/>
+            <ComboBoxItem Content="62"/>
+            <ComboBoxItem Content="63"/>
+            <ComboBoxItem Content="64"/>
+            <ComboBoxItem Content="65"/>
+            <ComboBoxItem Content="66"/>
+            <ComboBoxItem Content="67"/>
+            <ComboBoxItem Content="68"/>
+            <ComboBoxItem Content="69"/>
+            <ComboBoxItem Content="70"/>
+            <ComboBoxItem Content="71"/>
+            <ComboBoxItem Content="72"/>
+            <ComboBoxItem Content="73"/>
+            <ComboBoxItem Content="74"/>
+            <ComboBoxItem Content="75"/>
+            <ComboBoxItem Content="76"/>
+            <ComboBoxItem Content="77"/>
+            <ComboBoxItem Content="78"/>
+            <ComboBoxItem Content="79"/>
+            <ComboBoxItem Content="80"/>
+            <ComboBoxItem Content="81"/>
+            <ComboBoxItem Content="82"/>
+            <ComboBoxItem Content="83"/>
+            <ComboBoxItem Content="84"/>
+            <ComboBoxItem Content="85"/>
+            <ComboBoxItem Content="86"/>
+            <ComboBoxItem Content="87"/>
+            <ComboBoxItem Content="88"/>
+            <ComboBoxItem Content="89"/>
+            <ComboBoxItem Content="90"/>
+            <ComboBoxItem Content="91"/>
+            <ComboBoxItem Content="92"/>
+            <ComboBoxItem Content="93"/>
+            <ComboBoxItem Content="94"/>
+            <ComboBoxItem Content="95"/>
+            <ComboBoxItem Content="96"/>
+            <ComboBoxItem Content="97"/>
+            <ComboBoxItem Content="98"/>
+            <ComboBoxItem Content="99"/>
+            <ComboBoxItem Content="100"/>
+            <ComboBoxItem Content="999"/>
+        </ComboBox>
+        <ComboBox x:Name="m_maxAge" Canvas.Left="680" Canvas.Top="373" Width="99" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="26"/>
+            <ComboBoxItem Content="27"/>
+            <ComboBoxItem Content="28"/>
+            <ComboBoxItem Content="29"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem Content="31"/>
+            <ComboBoxItem Content="32"/>
+            <ComboBoxItem Content="33"/>
+            <ComboBoxItem Content="34"/>
+            <ComboBoxItem Content="35"/>
+            <ComboBoxItem Content="36"/>
+            <ComboBoxItem Content="37"/>
+            <ComboBoxItem Content="38"/>
+            <ComboBoxItem Content="39"/>
+            <ComboBoxItem Content="40"/>
+            <ComboBoxItem Content="41"/>
+            <ComboBoxItem Content="42"/>
+            <ComboBoxItem Content="43"/>
+            <ComboBoxItem Content="44"/>
+            <ComboBoxItem Content="45"/>
+            <ComboBoxItem Content="46"/>
+            <ComboBoxItem Content="47"/>
+            <ComboBoxItem Content="48"/>
+            <ComboBoxItem Content="49"/>
+            <ComboBoxItem Content="50"/>
+            <ComboBoxItem Content="51"/>
+            <ComboBoxItem Content="52"/>
+            <ComboBoxItem Content="53"/>
+            <ComboBoxItem Content="54"/>
+            <ComboBoxItem Content="55"/>
+            <ComboBoxItem Content="56"/>
+            <ComboBoxItem Content="57"/>
+            <ComboBoxItem Content="58"/>
+            <ComboBoxItem Content="59"/>
+            <ComboBoxItem Content="60"/>
+            <ComboBoxItem Content="61"/>
+            <ComboBoxItem Content="62"/>
+            <ComboBoxItem Content="63"/>
+            <ComboBoxItem Content="64"/>
+            <ComboBoxItem Content="65"/>
+            <ComboBoxItem Content="66"/>
+            <ComboBoxItem Content="67"/>
+            <ComboBoxItem Content="68"/>
+            <ComboBoxItem Content="69"/>
+            <ComboBoxItem Content="70"/>
+            <ComboBoxItem Content="71"/>
+            <ComboBoxItem Content="72"/>
+            <ComboBoxItem Content="73"/>
+            <ComboBoxItem Content="74"/>
+            <ComboBoxItem Content="75"/>
+            <ComboBoxItem Content="76"/>
+            <ComboBoxItem Content="77"/>
+            <ComboBoxItem Content="78"/>
+            <ComboBoxItem Content="79"/>
+            <ComboBoxItem Content="80"/>
+            <ComboBoxItem Content="81"/>
+            <ComboBoxItem Content="82"/>
+            <ComboBoxItem Content="83"/>
+            <ComboBoxItem Content="84"/>
+            <ComboBoxItem Content="85"/>
+            <ComboBoxItem Content="86"/>
+            <ComboBoxItem Content="87"/>
+            <ComboBoxItem Content="88"/>
+            <ComboBoxItem Content="89"/>
+            <ComboBoxItem Content="90"/>
+            <ComboBoxItem Content="91"/>
+            <ComboBoxItem Content="92"/>
+            <ComboBoxItem Content="93"/>
+            <ComboBoxItem Content="94"/>
+            <ComboBoxItem Content="95"/>
+            <ComboBoxItem Content="96"/>
+            <ComboBoxItem Content="97"/>
+            <ComboBoxItem Content="98"/>
+            <ComboBoxItem Content="99"/>
+            <ComboBoxItem Content="100"/>
+            <ComboBoxItem Content="999"/>
+        </ComboBox>
+
+    </Canvas>
+</Page>

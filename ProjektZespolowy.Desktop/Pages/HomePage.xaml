@@ -1,0 +1,26 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:WPF="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="HomePage">
+
+    <Canvas x:Name="m_canvas" Background="White">
+
+        <WPF:BrowserView x:Name="m_webBrowser" Height="730" Width="1040" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="260"></WPF:BrowserView>
+
+        <ListView x:Name="m_ActivitiesList" MouseDoubleClick="UnSelectedPlace" SelectionChanged="OnSelectionChanged" Height="730" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center" IsSynchronizedWithCurrentItem="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="35" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Nazwa miejsca" Width="220" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Canvas>
+</Page>

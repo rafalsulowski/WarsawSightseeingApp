@@ -1,0 +1,23 @@
+﻿<Page x:Class="ProjektZespolowy.Desktop.Pages.TakeTripEndPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProjektZespolowy.Desktop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="TakeTripEndPage">
+
+    <Canvas Background="White">
+        <Label Content="Zakończono wycieczkę!" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" x:Name="m_TitleOfPage" FontSize="36" Height="95" Width="1300" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="35"/>
+        <Label Content="Mamy nadzieję, że wycieczka się udała!" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="29" Height="95" Width="1300" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="135"/>
+        <Label Content="Dziękujemy za skorzystanie z aplikacji" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="29" Height="56" Width="1300" Canvas.Top="205" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Content="Wróć na stronę główną" FontSize="18" Canvas.Left="528" Canvas.Top="310" Height="68" Width="244" Background="#FF007BFF" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Go_Back">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Canvas>
+</Page>

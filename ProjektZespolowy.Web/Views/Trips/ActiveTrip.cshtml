@@ -1,0 +1,288 @@
+﻿@model ProjektZespolowy.Models.DTO.TripDTO;
+@{
+    Layout = "_LoadScriptsLayout";
+    ViewData["Title"] = "Aktywna wycieczka";
+}
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Lista miejsc</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="list-group">
+            @foreach (var item in Model.Places.OrderBy(p=>p.Sequence))
+            {
+                <li class="list-group-item">@Html.Raw(item.Name)</li>
+            }
+        </ul>
+    </div>
+</div>
+<div id="main" class="main-container bg-dark">
+    
+    <div id="content"></div>
+</div>
+
+
+
+
+<style>
+.main-container{
+    height:100vh;  
+    
+}
+body {
+    overflow-y:hidden;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.toast {
+    right:0px
+}
+</style>
+<script>
+    function redirectToGoogleMaps(){
+        p1 = "";
+        p2 = places_names[PlaceSeq]
+        if(current_coords==null){
+            p1 = p2;
+        } else{
+            p1 = current_coords
+        }
+        const url = "https://www.google.com/maps/dir/" + p1 + "/" + p2
+        window.open(url, '_blank').focus()
+    }
+    function switchToEndView(){
+        clearInterval(timer_interval)
+        console.log("Koniec")
+        ViewType = 3
+        fetch(window.location.href, {
+            method: "POST",
+            body: JSON.stringify({
+                "ViewType": ViewType,
+                "PlaceSeq": PlaceSeq
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        document.getElementById("content").remove()
+        document.getElementById("main").innerHTML = endView;
+        return;
+    }
+    function closeTrip() {
+        PlaceSeq = -1;
+        ViewType = 0;
+        fetch(window.location.href, {
+            method: "POST",
+            body: JSON.stringify({
+                "ViewType": ViewType,
+                "PlaceSeq": PlaceSeq
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        location.href = "/Trips"
+    }
+
+    var timer_interval;
+    function switchToStopView(){
+        ViewType = 2
+        fetch(window.location.href, {
+            method: "POST",
+            body: JSON.stringify({
+                "ViewType": ViewType,
+                "PlaceSeq": PlaceSeq
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        var sec = 0;
+        function pad(val) { return val > 9 ? val : "0" + val; }
+        toasted = false;
+        timer_interval = setInterval(function () {
+            document.getElementById("seconds").innerHTML = pad(++sec % 60);
+            document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+            if (parseInt(document.getElementById("minutes").innerHTML) >= parseInt(document.getElementById("time_for_place").innerHTML) & !toasted){
+                console.log("Toast")
+                $('.toast').toast('show')
+                toasted = true;
+            }
+        }, 1000);
+        current_coords = places_coords[PlaceSeq]
+        document.getElementById("content").remove()
+        document.getElementById("main").innerHTML = stopView;
+        document.getElementById("place_name").textContent = places_names[PlaceSeq]
+        document.getElementById("time_for_place").textContent = times_for_places[PlaceSeq]
+        const progress = Math.round(100 * (PlaceSeq) / n_places)
+        document.getElementsByClassName("progress-bar")[0].style.width = progress + "%"
+    }
+    function switchToTripView(){
+        clearInterval(timer_interval)
+        PlaceSeq = PlaceSeq + 1;
+        if (PlaceSeq >= n_places){
+            switchToEndView();
+            return;
+        }
+        ViewType = 1;
+        fetch(window.location.href, {
+            method: "POST",
+            body: JSON.stringify({
+                "ViewType": ViewType,
+                "PlaceSeq": PlaceSeq
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        document.getElementById("content").remove()
+        document.getElementById("main").innerHTML = tripView;
+        document.getElementById("place_name").textContent = places_names[PlaceSeq]
+        const progress = Math.round(100*(PlaceSeq)/n_places)
+        document.getElementsByClassName("progress-bar")[0].style.width = progress + "%"
+    }
+    function switchToStartView(){
+        clearInterval(timer_interval)
+        PlaceSeq = -1;
+        ViewType = 0;
+        fetch(window.location.href, {
+            method: "POST",
+            body: JSON.stringify({
+                "ViewType": ViewType,
+                "PlaceSeq": PlaceSeq
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        document.getElementById("main").innerHTML = startView;
+    }
+    function start() {
+        switchToTripView();
+    }
+    const places_names = [
+    @foreach (var item in Model.Places.OrderBy(p=>p.Sequence))
+    {
+        @Html.Raw("\"")@Html.Raw(item.Name)@Html.Raw("\",")
+    }
+            ]
+    const places_coords = [
+    @foreach (var item in Model.Places.OrderBy(p=>p.Sequence))
+    {
+        @Html.Raw("\"")@Html.Raw(item.Coordinates)@Html.Raw("\",")
+    }
+                ]
+        
+    const times_for_places = [
+    @foreach( var item in Model.Places.OrderBy(p=> p.Sequence))
+    {
+        @Html.Raw("\"")@Html.Raw(item.TimeForPlace)@Html.Raw("\",")
+    }
+    ]
+    
+</script>
+<script>
+//Templates
+    const startView = `<div id="content" class="container text-center ">
+        <h1 class="text-light">Witamy w widoku wycieczki</h1>
+        <div class="col">
+            <div class="row align-self-start mb-5">
+                
+                <div class="text-center text-light">
+                    <p class="mb-0"> Po rozpoczęciu zostaniesz przeprowadzony przez utworzoną wcześniej wycięczkę.</p>
+                    <p> Spakuj co potrzeba, przygotuj się do podróży i baw się dobrze!</p>
+                </div>
+                
+            </div>
+            <div class="row align-self-end">
+                <button class="btn btn-success start-button" onclick="start()">Zaczynajmy</button>
+                <button class="btn btn-danger">Anuluj</button>
+            </div>
+                
+
+        </div>
+    </div>"`
+
+    const tripView = `<div id="content" class="container text-center text-light">
+            <h1 class="text-light">Widok wycieczki</h1>
+            <div class="progress mb-4" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width:0%;"></div>
+            </div>
+            <h3 class="mb-3">Kolejny przystanek</h3>
+            <p id="place_name"></p>
+            <div class="btn-group">
+                    <button class="btn btn-primary text-light me-2" onclick="redirectToGoogleMaps()">Wyświetl mapę</button>
+                    <button class="btn btn-primary text-light" onclick="switchToStopView()">Już dotarłem</button>
+            </div>
+            <p class="pb-0 mb-0 mt-3">Jest godzina:</p><br />
+            <iframe src="https://free.timeanddate.com/clock/i8vqml0h/n262/tlpl31/fcfff/tct/pct/th1/ta1" frameborder="0" width="98" height="19" allowtransparency="true"></iframe><br>
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sprawdź listę miejsc</button>
+        </div>`
+    const stopView = `<div id="content" class="container text-center text-light">
+                <h1 class="text-light">Widok wycieczki</h1>
+                <div class="progress mb-4" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" style="width:0%"></div>
+                </div>
+                <h3> Miłego zwiedzania </h3>
+                <h3 class="mb-3">Aktualny przystanek</h3>
+                <p id="place_name"></p>
+                <div class="btn-group">
+                        <button class="btn btn-primary text-light" onclick="switchToTripView()">Chcę iść dalej</button>
+                </div>
+                <p class="pb-0 mb-0 mt-3">Zaplanowany czas na zwiedzanie:</p>
+                <p id="time_for_place"> </p>
+                <p class="pb-0 mb-0 mt-3">Spędzony czas:</p>
+                <span id="minutes"></span>:<span id="seconds"></span>
+                <p class="pb-0 mb-0 mt-3">Jest godzina:</p>
+                    
+                <iframe src="https://free.timeanddate.com/clock/i8vqml0h/n262/tlpl31/fcfff/tct/pct/th1/ta1" frameborder="0" width="98" height="19" allowtransparency="true"></iframe><br>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Sprawdź listę miejsc</button>
+
+                     <div class="toast position-absolute" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
+                        <div class="toast-header position-relative">
+                            <strong class="mr-auto">Kontrola wycieczki</strong>
+                            <button type="button" class="ml-2 mb-1 close btn position-absolute" style="right:0" data-bs-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body bg-dark">
+                            Czas, który przewidziałeś na zwiedzanie właśnie się skończył!
+                        </div>
+                    </div>
+            `
+    const endView = `<div id="content" class="container text-center text-light">
+                    <h1 class="text-light">Widok wycieczki</h1>
+                    <h3> To już koniec tej wycieczki </h3>
+                    <h3 class="mb-3">Mamy nadzieję, że podróż się udała!</h3>
+                        <button class="btn btn-primary text-light" onclick="closeTrip()">Powrót do listy</button>
+                </div>`
+    
+</script>
+<script>
+//Init
+    var n_places = @Html.Raw(Model.Places.Count());
+    var PlaceSeq = @Html.Raw(ViewData["PlaceSeq"]);
+    var ViewType = @Html.Raw(ViewData["ViewType"]);
+    console.log(n_places, PlaceSeq, ViewType);
+    var current_coords = null;
+    if (PlaceSeq > 0){
+        current_coords = places_coords[PlaceSeq-1];
+    }
+    switch (ViewType) {
+        case 0:
+            switchToStartView();
+            break;
+        case 1:
+            PlaceSeq = PlaceSeq - 1;
+            switchToTripView();
+            break;
+        case 2  :
+            switchToStopView();
+            break;
+        case 3:
+            switchToEndView();
+            break;
+    }
+</script>

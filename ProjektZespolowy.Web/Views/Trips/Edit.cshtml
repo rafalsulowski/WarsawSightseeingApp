@@ -1,0 +1,97 @@
+﻿@model ProjektZespolowy.Models.DTO.TripDTO
+
+@{
+    ViewData["Title"] = "Trips";
+}
+
+<h1>Planowanie wycieczki</h1>
+
+<h4>Szczegóły planu</h4>
+<hr />
+
+<div class="row">
+    <div class="">
+        <form asp-controller="Trips" asp-action="Edit">
+            <input asp-for="Id" class="form-control" hidden/>
+            <input asp-for="UserId" class="form-control" hidden />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Title" class="col-sm-2 col-form-label">Tytuł</label>
+                <div class="col-sm-10">
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-2 col-form-label">Opis</label>
+                <div class="col-sm-10">
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="StartHour" class="col-sm-2 col-form-label">Godzina rozpoczęcia</label>
+                <div class="col-sm-10">
+                    <input asp-for="StartHour" type="number" class="form-control" />
+                    <span asp-validation-for="StartHour" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StopHour" class="col-sm-2 col-form-label">Godzina zakończenia</label>
+                <div class="col-sm-10">
+                    <input asp-for="StopHour" type="number" class="form-control" />
+                    <span asp-validation-for="StopHour" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Date" class="col-sm-2 col-form-label">Data wycieczki</label>
+                <div class="col-sm-10">
+                    <input asp-for="Date" type="date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="TransportType" class="col-sm-2 col-form-label">Preferowany transport</label>
+                <div class="col-sm-10">
+                    <select asp-for="TransportType" class="form-control">
+                        <option value="0">Samochodem</option>
+                        <option value="1">Rowerem</option>
+                        <option value="2">Pieszo</option>
+                        <option value="3">Transportem publicznym</option>
+                    </select>
+                    <!--<span asp-validation-for="TransportType" class="text-danger"></span>-->
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Budget" class="col-sm-2 col-form-label">Maksymalny budżet</label>
+                <div class="col-sm-10">
+                    <input asp-for="Budget" type="number" class="form-control" />
+                    <span asp-validation-for="Budget" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group pt-3 text-center">
+                <a asp-controller="Trips" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Wróć</a>
+                <input type="submit" value="Edytuj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .row {
+        margin-top: 20px !important
+    }
+
+    body {
+        margin-bottom: 0px
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
